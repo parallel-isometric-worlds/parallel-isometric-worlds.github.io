@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel Worlds - Navigate Political Worldviews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2C5F2D;
+            --secondary: #97BC62;
+            --accent-blue: #4A7C9C;
+            --accent-red: #C85A54;
+            --bg-light: #F8F9F5;
+            --bg-dark: #1A1A1A;
+            --text-dark: #2A2A2A;
+            --text-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #F8F9F5 0%, #E8ECE0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(151, 188, 98, 0.1) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(74, 124, 156, 0.1) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .project-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #555;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            font-family: 'Space Mono', monospace;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(44, 95, 45, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+
+        /* Isometric Demo Section */
+        .demo-section {
+            padding: 6rem 2rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .isometric-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            padding: 2rem;
+        }
+
+        .worldview-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .worldview-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .worldview-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .worldview-a .worldview-title {
+            color: var(--accent-blue);
+        }
+
+        .worldview-b .worldview-title {
+            color: var(--accent-red);
+        }
+
+        .worldview-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .worldview-a .worldview-indicator {
+            background: var(--accent-blue);
+        }
+
+        .worldview-b .worldview-indicator {
+            background: var(--accent-red);
+        }
+
+        /* Isometric Visualization */
+        .iso-visual {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iso-cube {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(-30deg) rotateY(30deg); }
+            50% { transform: translateY(-20px) rotateX(-30deg) rotateY(30deg); }
+        }
+
+        .iso-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.9;
+        }
+
+        .iso-face.top {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #6BA3C5 100%);
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .iso-face.front {
+            background: linear-gradient(180deg, var(--accent-blue) 0%, #3A6C8C 100%);
+            transform: translateZ(50px);
+        }
+
+        .iso-face.right {
+            background: linear-gradient(180deg, #3A6C8C 0%, #2A5C7C 100%);
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .worldview-b .iso-face.top {
+            background: linear-gradient(135deg, var(--accent-red) 0%, #D87A74 100%);
+        }
+
+        .worldview-b .iso-face.front {
+            background: linear-gradient(180deg, var(--accent-red) 0%, #B84A44 100%);
+        }
+
+        .worldview-b .iso-face.right {
+            background: linear-gradient(180deg, #B84A44 0%, #A83A34 100%);
+        }
+
+        .worldview-text {
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .worldview-text h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .worldview-text p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        /* Problem-Solution Section */
+        .content-section {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(151, 188, 98, 0.1) 0%, rgba(74, 124, 156, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 0;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: linear-gradient(135deg, #E8ECE0 0%, #F8F9F5 100%);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step p {
+            font-size: 1.05rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 2rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-dark);
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .isometric-container {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="project-tag">Early Stage Project • Idea Phase</div>
+            <h1>Parallel Worlds</h1>
+            <p class="subtitle">Navigate political worldviews through interactive visualization.<br>Understanding without agreement.</p>
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary">See the Concept</a>
+                <a href="#contact" class="btn btn-secondary">Get Involved</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-header">
+            <h2>Same Reality, Different Lenses</h2>
+            <p>Explore how the same political issue can be understood through completely different worldviews—each internally coherent, each based on real data.</p>
+        </div>
+
+        <div class="isometric-container">
+            <div class="worldview-card worldview-a">
+                <div class="worldview-title">
+                    <span class="worldview-indicator"></span>
+                    Worldview A: Security & Sovereignty
+                </div>
+                <div class="iso-visual">
+                    <div class="iso-cube">
+                        <div class="iso-face top"></div>
+                        <div class="iso-face front"></div>
+                        <div class="iso-face right"></div>
+                    </div>
+                </div>
+                <div class="worldview-text">
+                    <h4>EU Migration Policy</h4>
+                    <p>"Border controls protect national identity and economic stability. Communities have the right to decide who enters. Uncontrolled migration threatens social cohesion and strains public services."</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.7;">Key data: Employment statistics, integration challenges, public opinion polls on cultural concerns</p>
+                </div>
+            </div>
+
+            <div class="worldview-card worldview-b">
+                <div class="worldview-title">
+                    <span class="worldview-indicator"></span>
+                    Worldview B: Humanity & Economics
+                </div>
+                <div class="iso-visual">
+                    <div class="iso-cube">
+                        <div class="iso-face top"></div>
+                        <div class="iso-face front"></div>
+                        <div class="iso-face right"></div>
+                    </div>
+                </div>
+                <div class="worldview-text">
+                    <h4>EU Migration Policy</h4>
+                    <p>"Migration addresses humanitarian crises and demographic challenges. Aging populations need workers. History shows diverse societies are more innovative and economically dynamic."</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.7;">Key data: Demographic projections, economic contribution studies, refugee rights frameworks</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem;">
+            <p style="font-size: 1.3rem; opacity: 0.8; font-style: italic;">Both perspectives are internally coherent.<br>Both are based on selective but real evidence.<br>Understanding this is the first step toward democratic resilience.</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="content-section">
+        <h2>The Problem</h2>
+        <p>Political polarization has fractured democracies worldwide into parallel realities. People don't just disagree on policies—they inhabit entirely different narratives about how the world works.</p>
+        
+        <p>In Hungary, a government supporter sees economic development and national sovereignty. An opposition supporter sees corruption and democratic backsliding. Both perspectives feel internally consistent. Both sides believe the other is "brainwashed."</p>
+
+        <div class="highlight-box">
+            <p>"This mutual incomprehension destroys the social fabric necessary for democratic resilience. Traditional fact-checking and debate only deepen trenches—people don't trust contradictory sources."</p>
+        </div>
+
+        <p>We need a new approach: one that doesn't tell people they're wrong, but helps them understand <em>why</em> others see the world differently.</p>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="content-section how-it-works">
+        <h2>How Parallel Worlds Works</h2>
+        <p>An interactive, isometric visual platform that makes competing political worldviews tangible, navigable, and pedagogical rather than combative.</p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Visual Navigation</h3>
+                <p>Walk through different political narratives like exploring a map—spatial, intuitive, non-confrontational.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Collaborative Building</h3>
+                <p>Contributors from different backgrounds work together to accurately represent each worldview fairly.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Cognitive Empathy</h3>
+                <p>Users develop the capacity for understanding without agreement—a critical democratic skill.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 3rem;">
+            <p>"Twenty to thirty years from now, democracies will need citizens who can hold multiple perspectives simultaneously—not to abandon their values, but to understand why neighbors see the world differently."</p>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="content-section">
+        <h2>The Vision</h2>
+        <p>Parallel Worlds is designed for transnational adaptation. The platform architecture—visual worldmap + collaborative contribution + transparent moderation—can serve any polarized democracy:</p>
+
+        <ul style="font-size: 1.2rem; line-height: 2; margin-left: 2rem; margin-top: 1rem;">
+            <li>A Brazilian version mapping Bolsonaro vs. Lula narratives</li>
+            <li>An American version mapping progressive vs. conservative worldviews</li>
+            <li>An Indian version mapping BJP vs. Congress perspectives</li>
+            <li>A Polish version, a French version, and beyond</li>
+        </ul>
+
+        <p style="margin-top: 2rem;">This isn't just a tool for today's debates—it's infrastructure for the next generation of democratic citizenship.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Get Involved</h2>
+        <p>Parallel Worlds is in its early stages. We're seeking collaborators, advisors, and supporters who believe in building democratic resilience through innovative civic technology.</p>
+        
+        <div class="cta-buttons">
+            <a href="mailto:your.email@example.com" class="btn btn-primary">Express Interest</a>
+        </div>
+
+        <div class="contact-info">
+            <p style="margin-top: 2rem;">Project Lead: Gergely Gazda</p>
+            <p>Budapest, Hungary</p>
+            <p><a href="https://www.linkedin.com/in/gergely-gazda/">LinkedIn</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Parallel Worlds • A Civic Technology Initiative • 2025</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">Part of the global movement for inclusive and resilient democracies</p>
+    </footer>
+</body>
+</html>
